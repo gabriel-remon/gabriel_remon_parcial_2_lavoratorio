@@ -31,7 +31,28 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="inc/Controller.h" />
+		<Unit filename="inc/LinkedList.h" />
+		<Unit filename="inc/parser.h" />
+		<Unit filename="inc/pelicula.h" />
+		<Unit filename="inc/utn.h" />
 		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="movies.csv" />
+		<Unit filename="src/Controller.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/LinkedList.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/parser.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/pelicula.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utn.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />

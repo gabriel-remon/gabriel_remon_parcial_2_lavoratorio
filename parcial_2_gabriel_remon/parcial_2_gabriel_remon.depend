@@ -1,0 +1,74 @@
+# depslib dependency file v1.0
+1637879867 source:/home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/src/LinkedList.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../inc/LinkedList.h"
+
+1637879867 /home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/inc/LinkedList.h
+
+1637701146 source:/home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/src/utn.c
+	<stdio.h>
+	<stdlib.h>
+	<stdio_ext.h>
+	<string.h>
+	<ctype.h>
+	"../inc/utn.h"
+
+1636763831 /home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/inc/utn.h
+
+1637967640 source:/home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"inc/LinkedList.h"
+	"inc/utn.h"
+	"inc/pelicula.h"
+	"inc/parser.h"
+	"inc/Controller.h"
+	"time.h"
+
+1637962645 /home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/inc/enunciado.h
+	"LinkedList.h"
+
+1637964185 /home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/inc/parser.h
+	"LinkedList.h"
+
+1637966987 /home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/inc/Controller.h
+	"LinkedList.h"
+
+1637967656 source:/home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/src/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../inc/Controller.h"
+	"../inc/LinkedList.h"
+	"../inc/pelicula.h"
+	"../inc/parser.h"
+	"../inc/utn.h"
+
+1637964185 source:/home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/src/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"../inc/LinkedList.h"
+	"../inc/pelicula.h"
+
+1637963147 source:/home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/src/enunciado.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../inc/LinkedList.h"
+	"../inc/enunciado.h"
+	"../inc/utn.h"
+
+1637966987 /home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/inc/pelicula.h
+	"LinkedList.h"
+
+1637967311 source:/home/linux/Escritorio/facultad/programacion/primerCuatrimestre/gabriel_remon_parcial_2_lavoratorio/parcial_2_gabriel_remon/src/pelicula.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../inc/LinkedList.h"
+	"../inc/pelicula.h"
+	"../inc/utn.h"
+
