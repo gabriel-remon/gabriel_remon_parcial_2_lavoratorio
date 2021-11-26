@@ -178,7 +178,6 @@ int pelicula_getRaiting(ePelicula* this,float* raiting)
     return retorno;
 }
 
-
 void pelicula_printUno(ePelicula* this)
 {
     int id;
@@ -201,7 +200,7 @@ void pelicula_printUno(ePelicula* this)
     }
 }
 
-void pelicula_printColumna(ePelicula* this)
+void pelicula_printFila(ePelicula* this)
 {
     int idAux;
     char nombrePeliculaAux[128];
@@ -222,182 +221,6 @@ void pelicula_printColumna(ePelicula* this)
                raitingAux
               );
     }
-}
-
-int pelicula_ingresoNombrePelicula(ePelicula* this)
-{
-    int retorno=0;
-    char nombrePelicula[128];
-    if(this!=NULL)
-    {
-        do
-        {
-            utn_ingresoScring(nombrePelicula,"Ingrese nombre: ", "error\n",64);
-        }
-        while(utn_validarNombre(nombrePelicula,128));
-
-        pelicula_setNombrePelicula(this,nombrePelicula);
-        retorno=1;
-    }
-
-    return retorno;
-}
-
-int pelicula_ingresoGenero(ePelicula* this)
-{
-    int retorno=0;
-    char genero[128];
-    if(this!=NULL)
-    {
-        do
-        {
-            utn_ingresoScring(genero,"Ingrese el genero de la pelicula: ", "error\n",128);
-        }
-        while(utn_validarNombre(genero,128));
-
-        pelicula_setGenero(this,genero);
-        retorno=1;
-    }
-
-    return retorno;
-}
-
-
-int pelicula_ingresoRaiting(ePelicula* this)
-{
-    int retorno=0;
-    int raiting;
-
-    if(this!=NULL)
-    {
-        utn_minMaxInt(&raiting,"Ingrese la duracion de la pelicula: ","Error ingrese un numero valido",1,400);
-        pelicula_setRaiting(this,raiting);
-        retorno=1;
-    }
-
-    return retorno;
-}
-
-
-int pelicula_ordenarId(void* primerParametro,void* segundoParametro)
-{
-    int retorno=0;
-    ePelicula* pelicula1;
-    ePelicula* pelicula2;
-    int a;
-    int b;
-
-    if(primerParametro!=NULL && segundoParametro!=NULL)
-    {
-        pelicula1 = (ePelicula*) primerParametro;
-        pelicula2 = (ePelicula*) segundoParametro;
-        pelicula_getId(pelicula1,&a);
-        pelicula_getId(pelicula2,&b);
-
-        if(a>b)
-        {
-            retorno=1;
-        }
-        else
-        {
-            if(a<b)
-            {
-                retorno=-1;
-            }
-        }
-    }
-    return retorno;
-}
-
-int pelicula_ordenarNombrePelicula(void* primerParametro,void* segundoParametro)
-{
-    int retorno=0;
-    ePelicula* pelicula1;
-    ePelicula* pelicula2;
-    char a[128];
-    char b[128];
-
-    if(primerParametro!=NULL && segundoParametro!=NULL)
-    {
-        pelicula1 = (ePelicula*) primerParametro;
-        pelicula2 = (ePelicula*) segundoParametro;
-        pelicula_getNombrePelicula(pelicula1,a);
-        pelicula_getNombrePelicula(pelicula2,b);
-        retorno=strncasecmp(a,b,128);
-        if(retorno>0)
-        {
-            retorno=1;
-        }
-        else
-        {
-            if(retorno<0)
-            {
-                retorno=-1;
-            }
-        }
-    }
-    return retorno;
-}
-
-int pelicula_ordenarGenero(void* primerParametro,void* segundoParametro)
-{
-    int retorno=0;
-    ePelicula* pelicula1;
-    ePelicula* pelicula2;
-    char a[128];
-    char b[128];
-
-    if(primerParametro!=NULL && segundoParametro!=NULL)
-    {
-        pelicula1 = (ePelicula*) primerParametro;
-        pelicula2 = (ePelicula*) segundoParametro;
-        pelicula_getGenero(pelicula1,a);
-        pelicula_getGenero(pelicula2,b);
-        retorno=strncasecmp(a,b,128);
-        if(retorno>0)
-        {
-            retorno=1;
-        }
-        else
-        {
-            if(retorno<0)
-            {
-                retorno=-1;
-            }
-        }
-    }
-    return retorno;
-}
-
-
-
-int pelicula_ordenarRaiting(void* primerParametro,void* segundoParametro)
-{
-    int retorno=0;
-    ePelicula* pelicula1;
-    ePelicula* pelicula2;
-    float a;
-    float b;
-
-    if(primerParametro!=NULL && segundoParametro!=NULL)
-    {
-        pelicula1 = (ePelicula*) primerParametro;
-        pelicula2 = (ePelicula*) segundoParametro;
-        pelicula_getRaiting(pelicula1,&a);
-        pelicula_getRaiting(pelicula2,&b);
-        if(a>b)
-        {
-            retorno=1;
-        }
-        else
-        {
-            if(a<b)
-            {
-                retorno=-1;
-            }
-        }
-    }
-    return retorno;
 }
 
 void* pelicula_generarRaiting(void* entrada)
@@ -456,7 +279,7 @@ int pelicula_ordenargeneroRaiting(void* parametro1,void* parametro2)
     if(a!=NULL && b !=NULL)
     {
         parametroAux=strcmp(a->genero,b->genero);
-        if(parametroAux > 0 || ( parametroAux==0  &&(a->raiting > b->raiting)))
+        if(parametroAux > 0 || ( parametroAux==0  &&(a->raiting < b->raiting)))
         {
             retorno=1;
         }

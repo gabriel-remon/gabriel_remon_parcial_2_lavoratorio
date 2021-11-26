@@ -8,24 +8,15 @@
 #include "../inc/utn.h"
 
 
-/** \brief Carga los datos de los peliculas desde el archivo data.csv (modo texto).
- *         (saltea la primera linea de valores del archivo)
- *
- * \param path char*
- * \param pArrayListpelicula LinkedList*
- * \return int
- *
- */
-
-int controller_loadFromText(char* path, LinkedList* pArrayListpelicula)
+int controller_loadFromText(char* path, LinkedList* pArrayList)
 {
     int retorno=0;
     FILE* archivo;
     char vacio[128];
     char nombreArchivo[128];
-    if(path!=NULL && pArrayListpelicula!=NULL)
+    if(path!=NULL && pArrayList!=NULL)
     {
-        controller_exit(pArrayListpelicula);
+        controller_exit(pArrayList);
         strcat(nombreArchivo,path);
         strcat(nombreArchivo,".csv");
         archivo=fopen(nombreArchivo,"r");
@@ -34,7 +25,7 @@ int controller_loadFromText(char* path, LinkedList* pArrayListpelicula)
         if(archivo!=NULL)
         {
             fscanf(archivo,"%[^,],%[^,],%[^,],%[^\n]\n",vacio,vacio,vacio,vacio);
-            parser_peliculaFromText(archivo,pArrayListpelicula); // solo cambia eso
+            parser_peliculaFromText(archivo,pArrayList);
 
             retorno=1;
             printf("archivo cargado con exito");
@@ -50,50 +41,6 @@ int controller_loadFromText(char* path, LinkedList* pArrayListpelicula)
 
 }
 
-/** \brief Carga los datos de los peliculas desde el archivo data.bin (modo binario).
- *
- * \param path char*
- * \param pArrayListpelicula LinkedList*
- * \return int
- *
- */
-int controller_loadFromBinary(char* path, LinkedList* pArrayListpelicula)
-{
-    int retorno=0;
-    FILE* archivo;
-    char nombreArchivo[128];
-
-    if(path!=NULL && pArrayListpelicula!=NULL)
-    {
-        controller_exit(pArrayListpelicula);
-        strcat(nombreArchivo,path);
-        strcat(nombreArchivo,".bin");
-        archivo=fopen(nombreArchivo,"rb");
-        utn_clear();
-
-        if(archivo!=NULL)
-        {
-            parser_peliculaFromBinary(archivo,pArrayListpelicula);
-            retorno=1;
-            printf("archivo cargado con exito");
-            fclose(archivo);
-        }
-        else
-        {
-            printf("Archivo no encontrado");
-        }
-    }
-    return retorno;
-
-}
-
-/** \brief Listar peliculas
- *
- * \param path char*
- * \param pArrayListpelicula LinkedList*
- * \return int
- *
- */
 int controller_peliculaList(LinkedList* pArrayList)
 {
     int retorno=-1;
@@ -106,11 +53,11 @@ int controller_peliculaList(LinkedList* pArrayList)
         if(!ll_isEmpty(pArrayList))
         {
             peliculaCantidad=ll_len(pArrayList);
-            printf("id        nombre                          genero              Duracion\n");
+            printf("id        Nombre de la pelicula           genero              Rating\n\n");
             for(int i=0; i<peliculaCantidad; i++)
             {
                 pelicula=(ePelicula*) ll_get(pArrayList,i);
-                pelicula_printColumna(pelicula);
+                pelicula_printFila(pelicula);
             }
         }
         else
@@ -123,14 +70,6 @@ int controller_peliculaList(LinkedList* pArrayList)
     return retorno;
 }
 
-
-/** \brief Guarda los datos de los peliculas en el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListpelicula LinkedList*
- * \return int
- *
- */
 int controller_saveAsText(char* path, LinkedList* pArrayList)
 {
     int retorno=-1;
@@ -200,63 +139,6 @@ guardar:
     return retorno;
 }
 
-/** \brief Guarda los datos de los peliculas en el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListpelicula LinkedList*
- * \return int
- *
- */
-int controller_saveAsBinary(char* path, LinkedList* pArrayList)
-{
-    int retorno=-1;
-    char nombreArchivo[128]= {};
-    int peliculaCantidad;
-    char comfirmar;
-    ePelicula* pelicula;
-    FILE* archivo;
-
-    if(path!=NULL && !ll_isEmpty(pArrayList))
-    {
-        strcat(nombreArchivo,path);
-        strcat(nombreArchivo,".bin");
-        archivo=fopen(nombreArchivo,"r");
-        utn_clear();
-        if(archivo==NULL)
-        {
-            goto guardar;
-        }
-        else
-        {
-            fclose(archivo);
-            utn_confirmar(&comfirmar,"\nSe encontro un archivo con ese nombre. Desea sobre escrivirlo? (Y/N): ","Error ingrese 'Y' o 'N'",'Y','N');
-            if(comfirmar=='Y')
-            {
-guardar:
-                archivo=fopen(nombreArchivo,"wb");
-                peliculaCantidad=ll_len(pArrayList);
-                for(int i=0; i<peliculaCantidad; i++)
-                {
-                    pelicula=(ePelicula*) ll_get(pArrayList,i);
-                    if(pelicula!=NULL)
-                    {
-                        fwrite(pelicula,sizeof(ePelicula),1,archivo);
-                    }
-                }
-                printf("Archivo guardado con exito\n");
-                fclose(archivo);
-            }
-        }
-    }
-    else
-    {
-        printf("Primero deve de dar de alta un empleado");
-    }
-
-
-    return retorno;
-}
-
 void controller_exit(LinkedList* pArrayList)
 {
     int peliculaCantidad;
@@ -299,7 +181,6 @@ int menu()
     return retorno;
 }
 
-
 int controller_asignarRaiting(LinkedList* this)
 {
     int retorno=0;
@@ -323,6 +204,7 @@ int controller_asignarRaiting(LinkedList* this)
 
     return retorno;
 }
+
 int controller_asignarGenero(LinkedList* this)
 {
     int retorno=0;
@@ -343,6 +225,7 @@ int controller_asignarGenero(LinkedList* this)
     return retorno;
 
 }
+
 int controller_ordenarpeliculas(LinkedList* this)
 {
     int retorno=0;
@@ -351,10 +234,12 @@ int controller_ordenarpeliculas(LinkedList* this)
     {
         ll_sort(this,pelicula_ordenargeneroRaiting,1);
         controller_peliculaList(this);
+        retorno=1;
     }
 
     return retorno;
 }
+
 
 int controller_filtrarGenero(LinkedList* this)
 {
@@ -385,13 +270,15 @@ int controller_filtrarGenero(LinkedList* this)
 
         if(!ll_isEmpty(listaAux))
         {
-            utn_ingresoScring(nombreArchivo,"Ingrese el nombre como se guardara el archivo (sin el .csv)","Error\n",128);
+            utn_ingresoScring(nombreArchivo,"Ingrese el nombre como se guardara el archivo (sin el .csv): ","Error\n",128);
             controller_saveAsText(nombreArchivo,listaAux);
         }
         else
         {
             printf("No se encontraron datos del tipo seleccionado\n");
         }
+        ll_deleteLinkedList(listaAux);
+        retorno=1;
     }
 
     return retorno;
